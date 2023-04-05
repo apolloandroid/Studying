@@ -13,22 +13,47 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        showHashCodes()
-        showEquality()
+        getNullable()
     }
 
-    private fun showHashCodes() {
-        val str1 = User("Mary", 20)
-        val str2 = User("Mary", 20)
-        Log.d("TAG", "${str1.toString()}")
-        binding.textHashCode1.text = str1.hashCode().toString()
-        binding.textHashCode2.text = str2.hashCode().toString()
+    private fun getNullable() {
+        val user1 = User("Mary", 20, credit = null)
+        val user2 = User("John", 20, credit = null)
+        val users = listOf<User>(user1, user2)
+        val credits = listOf<Credit?>(user1.credit, user2.credit)
+
+        // проверка на null
+        if (user1.credit != null) {
+            binding.textEquality1.text = user1.credit.name
+        }
+
+        // безопасное обращение; null выведится, если credit == null
+        binding.textEquality1.text = user1.credit?.name
+
+        // функция let; если credit != null, выполнится блок внутри let.
+        // It - обращение к credit
+        user1.credit?.let {
+            countNextCreditPayment(it)
+            binding.textEquality1.text = it.name
+        }
+        // Элвис оператор; если credit != null, будет выведена строка справа
+        binding.textEquality1.text = user1.credit?.name ?: "Кредит не выбран"
+
+        // !! если credit != null, будет выведен name.
+        // Если нет - приложение вылетит (NullPointerException)
+        // Крайне не рекомендуется из-за вероятности, что значение всё-таки равно null.
+        binding.textEquality1.text = user1.credit!!.name
+
+        // функция для работы с коллекциями
+        val userWithCredit = users.filter { it.credit != null }
+        val creditsNotNull = credits.mapNotNull { it?.name }
+
+        // Безопасное приведение типов. Если строку удастся привести к числу, то всё хорошо,
+        // если нет, то number будет null и не будет ClassCastException, приложение не вылетит.
+        val number = user1.name as? Int
     }
 
-    private fun showEquality() {
-        val str1 = User(age = 30) // User[name="Mary", age=30]
-        val str2 = User("Mary", 20, "Petrova")
-        binding.textEquality1.text = (str1 == str2).toString() // то же самое, что str1.equals(str2)
-        binding.textEquality2.text = (str1 === str2).toString() // сравнение по ссылке
+    private fun countNextCreditPayment(credit: Credit){
+
     }
 }
