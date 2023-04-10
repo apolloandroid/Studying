@@ -57,15 +57,16 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/layout2"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/layout1"
             app:layout_constraintTop_toTopOf="@id/layout1">
 
             <TextView
                 android:id="@+id/textHashCode1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="34534"
@@ -74,29 +75,29 @@
 
             <TextView
                 android:id="@+id/textHashCode2"
-                android:text="34534"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:text="34534"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/textEquality1"
-                android:text="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:text="true"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
 
             <TextView
                 android:id="@+id/textEquality2"
-                android:layout_width="wrap_content"
-                android:text="true"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:text="true"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
