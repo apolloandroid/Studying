@@ -4,47 +4,57 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.studying.databinding.ActivityMainBinding
-import java.util.LinkedList
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val array = Array<User>(4) { User("John") }
-    private val arrayList = ArrayList<User>()
-    private val linkedList = LinkedList<User>()
+    private val array = arrayOf(8) // обязательно указываем размер массива
+    private val arrayList = ArrayList<Int>()
+
+    private val set = mutableSetOf<Int>(1, 2, 4) // изменяемый set
+    private val set1 = setOf<Int>(1, 2, 5) // неизменяемый set
+    private val setUser =
+        hashSetOf<User>(User("Mary", 20), User("Max", 20), User("Gary", 21))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-    }
-
-    fun array() {
-        val user = array.get(3)
-        val user1 = array[2]
-        val size = array.size
-        array.set(2, User("Sam"))
-        array[2] = User("Sam")
+//        arrayList()
+        set()
+        setUser()
     }
 
     fun arrayList() {
-        arrayList.add(User("Mike")) // В списке теперь только один элемент
-        val user = arrayList.get(3) // Ошибка, так как в списке только один элемент
-        val user1 = arrayList[2] // Ошибка, так как в списке только один элемент
-        val user2 = arrayList[0] // Ошибки нет
-        arrayList.add(3, User("Steven"))
+        val numbers = arrayListOf(1, 2, 1, 4, 5)
 
-        val users = arrayListOf(User("Mike"), User("John"))
-
-        arrayList.addAll(users) // Добавили несколько сразу
+        arrayList.addAll(numbers) // Добавили несколько сразу
         val size = arrayList.size
-        arrayList.remove(User("Sam"))
-        arrayList.removeAt(2) // Теперь в списке элемент, который был по 3 индексу, стал на втором индексе.
-        arrayList.removeAll(users)
+        Log.d("TAG", arrayList.size.toString())
+        Log.d("TAG", arrayList.toString())
+        arrayList.remove(1)
+        Log.d("TAG", arrayList.toString())
+        arrayList.removeAt(3) // Теперь в списке элемент, который был по 3 индексу, стал на втором индексе.
+        Log.d("TAG", arrayList.toString())
+        arrayList.removeAll(numbers)
+    }
 
-        array.set(2, User("Sam"))
-        array[2] = User("Sam")
+    fun set() {
+//        set1.add() // Ошибка! Нельзя добавить в неизменяемый set
+        set.add(1) // Попытались добавить 1, но не получилось, так как в сете уже есть 1
+        set.add(5)
+        set.addAll(setOf(3, 4, 6)) // Добавили сразу несколько элементов
+        set + setOf(3, 4, 5)
+        set - 3
+        val list = set.toList() // получили список из элементов сета
+        set.remove(2)
+    }
+
+    fun setUser() {
+        Log.d("TAG", setUser.size.toString())
+        setUser.add(User("Mary", 20))
+        Log.d("TAG", setUser.size.toString())
     }
 }
 
